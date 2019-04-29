@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <title>Kantor walut</title>
+        <link rel="stylesheet" href="style.css">
+        <script type="text/javascript" src="exchange.js">
+        </script>
+    </head>
+    <body onload="value();">
+        <div class="container">
+            <div id="logo">Foreign currency info</div>
+            <nav></nav>
+            <header>
+                <h1>Informacje o kursach walut</h1>
+                W poniższej tabeli widoczne są aktualne kursy głównych światowych walut (aktualizacja co sekundę):
+            </header>
+                <div id="tabela">
+                    <div id="row1">
+                        <div id=empty class="column1"></div>
+                        <div class="column row1">BUY</div>
+                        <div class="column row1">SELL</div>
+                    </div>
+                    <div class="row">
+                        <div class="column1">USD</div>
+                        <div id="USD_buy" class="column"></div>
+                        <div id="USD_buy_Sign" class="sign"></div>
+                        <div id="USD_sell" class="column"></div>
+                        <div id="USD_sell_Sign" class="sign"></div>
+                    </div>
+                    <div class="row">
+                        <div class="column1">EUR</div>
+                        <div id="EUR_buy" class="column"></div>
+                        <div id="EUR_buy_Sign" class="sign"></div>
+                        <div id="EUR_sell" class="column"></div>
+                        <div id="EUR_sell_Sign" class="sign"></div>
+                    </div>
+                    <div class="row">
+                        <div class="column1">GBP</div>
+                        <div id="GBP_buy" class="column"></div>
+                        <div id="GBP_buy_Sign" class="sign"></div>
+                        <div id="GBP_sell" class="column"></div>
+                        <div id="GBP_sell_Sign" class="sign"></div>
+                    </div>
+                    <div class="row">
+                        <div class="column1">CHF</div>
+                        <div id="CHF_buy" class="column"></div>
+                        <div id="CHF_buy_Sign" class="sign"></div>
+                        <div id="CHF_sell" class="column"></div>
+                        <div id="CHF_sell_Sign" class="sign"></div>
+                    </div>
+                </div>
+                Wykres walut z tabeli:
+                <div id="chart"><img class="image" src="job_place.jpg" width="75%" alt="Wykres"></div>
+            <footer id="stopka">Stopka</footer>
+        </div>
+    </body>
+</html>
