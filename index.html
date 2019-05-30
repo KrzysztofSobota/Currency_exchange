@@ -9,15 +9,14 @@
 </head>
 <body>
   <div class="container">
-   <header class="name">
+   <header class="main-header">
      <a href="">
         <h1>
-          <img src="/currency(small).svg" height="75" alt="currency symbols">
-          <span class="test">Currency exchange</span>
+          <img src="/currency(small).svg" height="75" alt="">
+          <span>Currency exchange</span>
         </h1>
      </a>
    </header>
-   <aside></aside>
    <main>
      <article>
        <h2>Information about currency values from <u>non-exists</u> stock exchange</h2>
@@ -31,31 +30,26 @@
              <th class="currency"></th>
              <th class="value">BUY</th>
              <th class="value">SELL</th>
-             <th class="change">CHANGE</th>
            </tr>
            <tr>
              <td class="currency">USD</td>
              <td class="value" id="USD_buy"></td>
              <td class="value" id="USD_sell"></td>
-             <td class="change" id="USD_sign"></td>
            </tr>
            <tr>
              <td class="currency">EUR</td>
              <td class="value" id="EUR_buy"></td>
              <td class="value" id="EUR_sell"></td>
-             <td class="change" id="EUR_sign"></td>
            </tr>
            <tr>
              <td class="currency">GBP</td>
              <td class="value" id="GBP_buy"></td>
              <td class="value" id="GBP_sell"></td>
-             <td class="change" id="GBP_sign"></td>
            </tr>
            <tr>
              <td class="currency">CHF</td>
              <td class="value" id="CHF_buy"></td>
              <td class="value" id="CHF_sell"></td>
-             <td class="change" id="CHF_sign"></td>
            </tr>
          </table>
        </section>
@@ -63,9 +57,25 @@
          <header>
           <h3>Values from table into chart:</h3>
          </header>
-          <p></p>
+          <p>Below you have access to the chart with some options (save graphics data to files, make trends using simple mathematical functions)</p>
           <div class="chart" id="chart">
             <canvas id="myCanvas"></canvas>
+            <div class="options">
+            	<label for="chartbox">Click to draw chart</label>
+            	<input type="checkbox" name="chartbox" id="chartbox">
+            </div>
+            <div class="options">
+            	<label for="quantity">How many steps to save in file</label>
+            	<input type="number" name="quantity" step="1" min="1" max="10" id="quantity">
+            	<select name="trends" id="trends">
+            		<option value="0" selected></option>
+            		<option value="1">linear</option>
+            		<option value="2">polynomial</option>
+            		<option value="3">logarithmic</option>
+            		<option value="3">inversely proportional</option>
+            	</select>
+            	<input type="button" value="Create trend">
+            </div>
           </div>
        </section>
      </article>
