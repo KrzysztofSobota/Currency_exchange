@@ -54,9 +54,7 @@
          </table>
        </section>
        <section class="graphical_result">
-         <header>
           <h3>Values from table into chart:</h3>
-         </header>
           <p>Below you have access to the chart with some options (save graphics data to files, make trends using simple mathematical functions)</p>
           <div class="chart" id="chart">
             <canvas id="myCanvas"></canvas>
@@ -66,15 +64,17 @@
             </div>
             <div class="options">
             	<label for="quantity">How many steps to save in file</label>
-            	<input type="number" name="quantity" step="1" min="1" max="10" id="quantity">
+            	<input type="number" name="quantity" step="1" min="1" max="10" value="1" required id="quantity">
+            </div>
+            <div class="options">
             	<select name="trends" id="trends">
-            		<option value="0" selected></option>
+            		<option value="0" selected>TYPE OF FUNCTION</option>
             		<option value="1">linear</option>
             		<option value="2">polynomial</option>
             		<option value="3">logarithmic</option>
             		<option value="3">inversely proportional</option>
             	</select>
-            	<input type="button" value="Create trend">
+            	<input type="button" value="CREATE TREND">
             </div>
           </div>
        </section>
