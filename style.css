@@ -1,7 +1,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  background-color: hsl(55, 21%, 90%);
   font-size: 16px;
 }
 
@@ -11,17 +10,21 @@ html, body {
 }
 
 .container {
-  height: auto;
+	width: 960px;
+	min-height: 800px;
+  margin: 0 auto;
+  background-color: hsl(203, 12%, 43%);
 }
 
-h1, h2, h3 { 
+h2, h3 { 
   width: 100%;
-  color: hsl(214, 61%, 30%);
+  color: goldenrod;
+	margin: 10px 0;
 }
 
-h1 { font-size: 2em; margin: 10px 0;}
-h2 { font-size: 1.5em; margin: 5px 0 12px 0;}
-h3 { font-size: 1.25em; margin: 5px 0 10px 0;}
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em;}
+h3 { font-size: 1.25em;}
 
 a {
   text-decoration: none;
@@ -33,33 +36,39 @@ p {
   text-indent: 1em;
   line-height: 1.5em;
   margin: 0.2em 0;
+  color: gold;
 }
 
-.name, .name > a, a > h1 {
+.main-header, .main-header > a, h1 {
   display: flex;
   width: 100%;
   justify-content: center;
 }
 
-.name {
+.main-header {
   height: 120px;
   align-content: center;  
-  background-color: hsla(168, 55%, 46%, 0.75);
+  background-color: hsl(168, 55%, 46%);
 }
 
-.name > a, a > h1 {
+.main-header > a, h1 {
   align-items: center;
 }
 
-a > h1 {
+h1 {
   height: auto;
   flex-flow: row nowrap;
 }
 
-.test {
+h1 > span {
   padding-left: 20px;
   margin-bottom: 9px;
   font-size: 75px;
+	color: hsl(214, 65%, 25%);
+}
+
+h1 > img {
+	height: 100%;
 }
 
 main {
@@ -80,26 +89,28 @@ section {
   padding: 5px 10px;
 }
 
-section > header {
-  
-}
-
-table {
-  width: 520px;
-  height: 270px;
-  margin: 2em auto;
+table {  
   border-collapse: collapse;
   border-spacing: 0;
   text-align: center;
 }
 
+table, canvas {
+	width: 100%;
+	height: 300px;
+}
+
+table, .chart {
+	margin: 1em auto;
+}
+
 th, td {
   border: 1px black solid;
-  font-size: 1.7em;
+  font-size: 1.8em;
 }
 
 th {
-  background-color: hsl(54, 47%, 70%);
+  background-color: hsl(54, 47%, 65%);
 }
 
 th:first-of-type {
@@ -108,49 +119,57 @@ th:first-of-type {
 }
 
 th:nth-of-type(2) {
-  color: hsl(200, 110%, 19%);
+  color: hsl(200, 110%, 15%);
 }
 
 th:nth-of-type(3) {
-  color: hsl(0, 72%, 34%);
+  color: hsl(0, 72%, 30%);
 }
 
 td {
   height: 20%;
   text-align: center;
-  background-color: white;  
+  background-color: hsl(54, 47%, 88%);  
 }
 
 td:first-of-type {
   background-color: hsl(168, 55%, 46%);
 }
 
-td:last-of-type {  
-  background-color: hsl(54, 47%, 82%);
-}
-
 .value {
   width: 25%;
-}
-
-.change {
-  width: 27.5%;  
 }
 
 .currency {
   width: 22.5%;  
 }
 
-.chart {
-  width: 500px;
-  height: 300px;
-  border: thin dashed red;
+.chart {  
+  height: auto;
 }
 
 canvas {
-  width: 100%;
-  height: 100%;
-  background-color: hsl(0, 31%, 85%);
+  background-color: hsl(0, 31%, 88%);
+}
+
+.options {
+	width: auto;
+	display: block;
+	padding: 5px;
+	color: hsl(238, 89%, 95%);
+}
+
+.options select, input[type='button'], input[type='number'] {
+	height: 2em;
+	color: hsl(228, 92%, 19%);
+}
+
+input[type='number'] {
+	width: 3.5em;
+}
+
+input[type='button'] {
+	margin-left: 5px;
 }
 
 footer {
@@ -170,12 +189,12 @@ footer > span {
   font-style: italic;
 }
 
-@media screen and (min-width: 400px) and (max-width: 960px) {
+@media screen and (min-width: 720px) and (max-width: 960px) {
   body, html {
     font-size: 14px;
   }
   
-  .test {
+  h1 > span {
     font-size: 50px;
   }
   
@@ -184,7 +203,7 @@ footer > span {
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (min-width: 360px) and (max-width: 720px) {
   body, html {
     font-size: 12px;
   }  
@@ -193,7 +212,7 @@ footer > span {
   h2 { font-size: 1.25em; }
   h3 { font-size: 1.1em; }
   
-  .name {
+  .main-header {
     height: 80px;
   }
   
@@ -201,11 +220,11 @@ footer > span {
     height: 45px;
   }
   
-  a > h1 {
+  h1 {
     flex-flow: row nowrap;
   }
     
-  .test {
+  h1 > span {
     padding: 3px 0 0 8px;
     font-size: 32px;
   }
