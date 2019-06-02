@@ -2,6 +2,7 @@ html, body {
   margin: 0;
   padding: 0;
   font-size: 16px;
+	background-image: url(/dollar_pattern_S.jpg);
 }
 
 * {
@@ -11,15 +12,17 @@ html, body {
 
 .container {
 	width: 960px;
-	min-height: 800px;
-  margin: 0 auto;
-  background-color: hsl(203, 12%, 43%);
+	margin: 0 auto;
+  background-color: hsl(238, 42%, 96%);
 }
 
 h2, h3 { 
   width: 100%;
-  color: goldenrod;
 	margin: 10px 0;
+}
+
+h2, h3, p, .options {
+	color: hsl(203, 25%, 20%);
 }
 
 h1 { font-size: 2em; }
@@ -36,7 +39,6 @@ p {
   text-indent: 1em;
   line-height: 1.5em;
   margin: 0.2em 0;
-  color: gold;
 }
 
 .main-header, .main-header > a, h1 {
@@ -60,27 +62,25 @@ h1 {
   flex-flow: row nowrap;
 }
 
-h1 > span {
-  padding-left: 20px;
+.name {
+  padding-left: 0.1em;
   margin-bottom: 9px;
   font-size: 75px;
 	color: hsl(214, 65%, 25%);
 }
 
 h1 > img {
-	height: 100%;
+	height: 2.5em;
+}
+
+main, article {
+  display: flex;
+  flex-flow: row wrap;
 }
 
 main {
-  display: flex;
-  flex-flow: row wrap;
   padding: 5px 15px;
-  margin-bottom: 70px;
-}
-
-article {
-  display: flex;
-  flex-flow: row wrap;
+  margin-bottom: 70px;  
 }
 
 section {
@@ -119,11 +119,11 @@ th:first-of-type {
 }
 
 th:nth-of-type(2) {
-  color: hsl(200, 110%, 15%);
+  color: hsl(240, 91%, 26%);
 }
 
 th:nth-of-type(3) {
-  color: hsl(0, 72%, 30%);
+  color: hsl(0, 100%, 19%);
 }
 
 td {
@@ -141,7 +141,8 @@ td:first-of-type {
 }
 
 .currency {
-  width: 22.5%;  
+  width: 22.5%;
+	color: black;
 }
 
 .chart {  
@@ -149,14 +150,13 @@ td:first-of-type {
 }
 
 canvas {
-  background-color: hsl(0, 31%, 88%);
+  background-color: hsl(215, 32%, 85%);
 }
 
 .options {
 	width: auto;
 	display: block;
 	padding: 5px;
-	color: hsl(238, 89%, 95%);
 }
 
 .options select, input[type='button'], input[type='number'] {
@@ -165,10 +165,10 @@ canvas {
 }
 
 input[type='number'] {
-	width: 3.5em;
+	width: 3em;
 }
 
-input[type='button'] {
+input[type='button'], input[type='number'] {
 	margin-left: 5px;
 }
 
@@ -194,26 +194,44 @@ footer > span {
     font-size: 14px;
   }
   
-  h1 > span {
-    font-size: 50px;
+	.container {
+		width: 100%;
+	}
+	
+  .main-header {
+    height: 100px;
+  }
+	
+  .name {
+		padding-left: 15px;
+    font-size: 65px;
   }
   
-  h1 > img {
-    height: 60px;
-  }
+	main {
+		padding: 5px 10px;
+	}	
+	
+	section {
+		flex-flow: row wrap;
+    flex: 100%;
+	}
+	
+	table, .chart {
+		width: 500px;
+	}
 }
 
-@media screen and (min-width: 360px) and (max-width: 720px) {
+@media screen and (min-width: 480px) and (max-width: 720px) {
   body, html {
-    font-size: 12px;
+    font-size: 14px;
   }  
   
-  h1 { font-size: 1.5em; }
-  h2 { font-size: 1.25em; }
-  h3 { font-size: 1.1em; }
+	.container {
+		width: 100%;
+	}
   
   .main-header {
-    height: 80px;
+    height: auto;
   }
   
   h1 > img {
@@ -222,11 +240,12 @@ footer > span {
   
   h1 {
     flex-flow: row nowrap;
+		margin: 0;
   }
     
-  h1 > span {
-    padding: 3px 0 0 8px;
-    font-size: 32px;
+  .name {
+    padding-left: 10px;
+    font-size: 45px;
   }
   
   main {
@@ -239,30 +258,80 @@ footer > span {
     flex: 100%;
   }
   
+	table {
+		height: 250px;
+	}
+	
   table, .chart {
-    width: 95%;
-    height: 210px;
+    width: 66%;
+		min-width: 400px;
     margin: 10px auto;
   }
 
   th, td {
-    font-size: 1.25em;
+    font-size: 1.75em;
   }
     
-  td:last-of-type {
-    margin: 0 auto;
-    background-color: hsl(51, 66%, 83%);
+  footer {
+    height: 50px;
   }
-/*
+}
+
+@media screen and (max-width: 480px) {
+  body, html {
+    font-size: 12px;
+  }  
   
-  .value {
-    width: 27.5%;
+	.container {
+		width: 100%;
+	}
+  
+  .main-header {
+    height: auto;
   }
-  .change, .currency {
-    width: 22.5%;  
+  
+  h1 > img {
+    height: 32px;
   }
-*/
+  
+  h1 {
+    flex-flow: row nowrap;
+		margin: 0;
+  }
     
+  .name {
+    padding-left: 5px;
+    font-size: 30px;
+  }
+  
+  main {
+		padding: 5px;
+  }
+  
+  section {
+    padding: 5px;
+    flex-flow: row wrap;
+    flex: 100%;
+  }
+  
+	table {
+		height: 250px;
+	}
+	
+  table, .chart {
+    width: 80%;
+		min-width: 290px;
+    margin: 10px auto;
+  }
+
+  th, td {
+    font-size: 1.75em;
+  }
+  
+	canvas {
+		height: 200px;
+	}
+	
   footer {
     height: 50px;
   }

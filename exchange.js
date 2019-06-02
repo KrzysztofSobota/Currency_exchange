@@ -67,9 +67,14 @@ function value() {
 					 } 
 			}
 		}
-		fillTable();
 		
-					 
+		fillTable();
+		let valuesArray1 = valuesArray2;
+		let valuesArray2 = SellBuy2(valuesArray1);
+		currency = [...valuesArray1, ...valuesArray2];
+		fillTable(valuesArray1, valuesArray2);
+	  
+		alert(`${valuesArray1} , ${valuesArray2}`);
     // Remove "absolete" part of 16-index table
 //      currency.splice(0,8);
   }
