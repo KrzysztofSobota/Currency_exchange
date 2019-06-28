@@ -21,7 +21,7 @@ function value() {
 	function SellBuy1() {
 		let sell = [];
 			for (let i = 0; i <= 3; i++) {
-		/* 'a' parameter change 4 buy to 4 sell values */
+		/* 'a' parameter changes 4 buy to 4 sell values */
 				let a = (Math.random() * 0.01) + 1.015; // 1,5% to 2,5% more
 				sell.push(a * buy[i]);
 			}
@@ -45,55 +45,61 @@ function value() {
 
 	let valuesArray2 = SellBuy2();
 
-	let currency = [...valuesArray1, ...valuesArray2];
-console.log(`${currency} - ONE`);
-  if (currency.length === 16) {	
-		
-		let currencySymbols = ["USD_buy", "EUR_buy", "GBP_buy", "CHF_buy", "USD_sell", "EUR_sell", "GBP_sell", "CHF_sell"];
-
-			
-		function fillTable() {
-			/* Function changes number of digits after the dot in all currency values to 4 (3.42 -> 3.4200, 2.86474 -> 2.8647, etc.) */
-			let tableValues = currency.map(x => x.toFixed(4));
-		console.log(tableValues);
-													
-			for (let i = 0; i <= 7; i++) {
-				 let cellText = document.getElementById(currencySymbols[i]);
-				 cellText.textContent = `${tableValues[i]}+A`;console.log(`${tableValues[i]}+A`);
-			}
-													
-			for (let i = 0; i <= 7; i++) {
-				 let cellText = document.getElementById(currencySymbols[i]);
-				 cellText.textContent = `${tableValues[i+8]} A`;console.log(`${tableValues[i+8]} A`);
-				
-						 if (currency[i+8] < currency[i]) {
-							 cellText.textContent = `${tableValues[i+8]} ${'\u2193'}`; //low
-						 }
-						 else if (currency[i+8] == currency[i]) {
-							 cellText.textContent = `${tableValues[i+8]} ${'\u2500'}`; //no change
-						 }
-						 else {
-							 cellText.textContent = `${tableValues[i+8]} ${'\u2191'}`; //high
-						 }
-			}
-		}
-		
-		fillTable();
-		let x = 1;
-		do {
-			valuesArray1 = valuesArray2;
-		valuesArray2 = SellBuy2(valuesArray1);
-		currency = [...valuesArray1, ...valuesArray2];console.log(`${currency} - TWO`);
-		fillTable(currency);
-			
-		} while (x++ <= 6);
-		
-	  
-		
-		/* All values will go into the array and then transfer on the chart (canvas) */
-		let chartData = [];
-		chartData.push(currency);console.log(`${chartData}`);
-		
-  }
+	let allValues = [...valuesArray1, ...valuesArray2];
+//	console.log(`${allValues} - ONE`);
+	return allValues;
 }
-setTimeout("value()", 2000);
+
+
+function fillTable() {
+	
+	let currency = value();
+	
+	/* Function changes number of digits after the dot in all currency values to 4 (3.42 -> 3.4200, 2.86474 -> 2.8647, etc.) */
+	let tableValues = currency.map(x => x.toFixed(4));
+	console.log(tableValues);
+
+//	let cellText = document.getElementById(currencySymbols[i]);
+	let cellText = document.querySelectorAll('.value');
+	let pos = Array.from(cellText.keys());
+	console.log(`${pos}`);
+	
+	for (let i = 0; i <= 15; i++) {
+		if (i <= 7) {
+			cellText[i].textContent = `${tableValues[i]}+A`;
+			console.log(`${tableValues[i]}+A`);
+		}
+		else {
+			if (currency[i] < currency[i-8]) {
+				cellText[i-8].textContent = `${tableValues[i]} ${'\u2193'}`; //low
+		  }
+		  else if (currency[i] == currency[i-8]) {
+			  cellText[i-8].textContent = `${tableValues[i]} ${'\u2500'}`; //no change
+		  }
+		  else {
+			  cellText[i-8].textContent = `${tableValues[i]} ${'\u2191'}`; //high
+		  }
+			console.log(`${tableValues[i]} A`);
+		}
+	}
+}
+
+fillTable();
+let x = 1;
+/*do {
+	valuesArray1 = valuesArray2;
+valuesArray2 = SellBuy2(valuesArray1);
+currency = [...valuesArray1, ...valuesArray2];console.log(`${currency} - TWO`);
+fillTable(currency);
+
+} while (x++ <= 6);*/
+
+
+
+/* All values will go into the array and then transfer on the chart (canvas) */
+/*let chartData = [];
+chartData.push(currency);console.log(`${chartData}`);*/
+		
+  
+value();
+//setTimeout("value()", 1000);
