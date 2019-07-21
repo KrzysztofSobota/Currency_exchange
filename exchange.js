@@ -1,12 +1,12 @@
 /* eslint-env es6 */
-"use strict"
-/*window.addEventListener('DOMContentLoaded', value(), false);*/
+"use strict";
+
+/*** Making 8-elements value array (4 buy -> 4 buy + 4 sell) ***/
 
 function value() {
 	let USD = document.getElementById('USD_buy').textContent;
-		
 	let buy = [];
-	
+
 	if (USD === '') {
 		/* Min/Max range for currency buy values */
 		let USD_buy = (Math.random() * 1.8) + 2.7;
@@ -14,92 +14,72 @@ function value() {
 		let GBP_buy = (Math.random() * 2) + 4.5;
 		let CHF_buy = (Math.random() * 2.5) + 2;
 
-		buy.push(USD_buy,EUR_buy,GBP_buy,CHF_buy);
+		buy.push(USD_buy, EUR_buy, GBP_buy, CHF_buy);
 	}
+
+
+	// a = (Math.random() * 0.01) + 1.015 parameter changes 4 buy to 4 sell values and makes sell values always 1,5%-2,5% more than buy values
+	let sell = buy.map(i => i * ((Math.random() * 0.01) + 1.015)); // [USD_sell, EUR_sell, GBP_sell, CHF_sell]
+
+	let valuesArray1 = [];
+		for (let index = 0; index < buy.length; index++) {
+			// buy, sell, buy, sell,... etc.
+			valuesArray1.push(buy[index], sell[index]);
+		}
 		
-	/* Making 8-elements (4 buy -> 4 sell) value array */
-	function SellBuy1() {
-		let sell = [];
-			for (let i = 0; i <= 3; i++) {
-		/* 'a' parameter changes 4 buy to 4 sell values */
-				let a = (Math.random() * 0.01) + 1.015; // 1,5% to 2,5% more
-				sell.push(a * buy[i]);
-			}
+		for (let i = 0; i < valuesArray1.length; i++) {
+			cellText[i].textContent = `${tableValues(valuesArray1)[i]}`;
+		}
 
-		return [...buy, ...sell];
-	}
-
-	let valuesArray1 = SellBuy1();
-
-	/* Making next 8-elements (4 buy, 4 sell -> 8 buy, 8 sell) value array */	
-	function SellBuy2() {
-		let tempArray = [];
-			for (let i = 0; i <= 7; i++) {
-	/* 'b' is +/- 5% fluctuation of exchange rate (it prevents huge value change) - 8 different numbers for every sell and buy values */
-				let b = (Math.random() * 0.1) + 0.95;
-				tempArray.push(b * valuesArray1[i]);        
-			}
-		
-		return tempArray;
-	}
-
-	let valuesArray2 = SellBuy2();
-
-	let allValues = [...valuesArray1, ...valuesArray2];
-//	console.log(`${allValues} - ONE`);
-	return allValues;
+	return valuesArray1;
 }
 
+	/* Function changes number of digits after the dot in all currency values to 4 (3.42 -> 3.4200, 2.86474 -> 2.8647, etc.) */
+	let tableValues = i => i.map(x => x.toFixed(4));
+
+	let cellText = document.querySelectorAll('.value');
+
+
+/*** Making another 8-elements value array from previous array (making 16-elements full array) ***/
 
 function fillTable() {
-	
-	let currency = value();
-	
-	/* Function changes number of digits after the dot in all currency values to 4 (3.42 -> 3.4200, 2.86474 -> 2.8647, etc.) */
-	let tableValues = currency.map(x => x.toFixed(4));
-	console.log(tableValues);
 
-//	let cellText = document.getElementById(currencySymbols[i]);
-	let cellText = document.querySelectorAll('.value');
-	let pos = Array.from(cellText.keys());
-	console.log(`${pos}`);
+	let Array1 = value();
+
+	console.log(Array1);
 	
-	for (let i = 0; i <= 15; i++) {
+	let pos = Array.from(cellText.keys());
+	
+
+// b = (Math.random() * 0.1) + 0.95 is +/- 5% fluctuation of exchange rate (it prevents huge value change between steps)
+let valuesArray2 = Array1.map(i => i * ((Math.random() * 0.1) + 0.95)); // another 4 buy, 4 sell
+
+
+
+	/* for (let i = 0; i <= 15; i++) {
 		if (i <= 7) {
 			cellText[i].textContent = `${tableValues[i]}+A`;
 			console.log(`${tableValues[i]}+A`);
-		}
-		else {
-			if (currency[i] < currency[i-8]) {
-				cellText[i-8].textContent = `${tableValues[i]} ${'\u2193'}`; //low
-		  }
-		  else if (currency[i] == currency[i-8]) {
-			  cellText[i-8].textContent = `${tableValues[i]} ${'\u2500'}`; //no change
-		  }
-		  else {
-			  cellText[i-8].textContent = `${tableValues[i]} ${'\u2191'}`; //high
-		  }
+		} else {
+			if (currency[i] < currency[i - 8]) {
+				cellText[i - 8].textContent = `${tableValues[i]} ${'\u2193'}`; //low
+			} else if (currency[i] == currency[i - 8]) {
+				cellText[i - 8].textContent = `${tableValues[i]} ${'\u2500'}`; //no change
+			} else {
+				cellText[i - 8].textContent = `${tableValues[i]} ${'\u2191'}`; //high
+			}
 			console.log(`${tableValues[i]} A`);
 		}
-	}
+	} */
 }
 
 fillTable();
-let x = 1;
-/*do {
-	valuesArray1 = valuesArray2;
-valuesArray2 = SellBuy2(valuesArray1);
-currency = [...valuesArray1, ...valuesArray2];console.log(`${currency} - TWO`);
-fillTable(currency);
-
-} while (x++ <= 6);*/
-
 
 
 /* All values will go into the array and then transfer on the chart (canvas) */
 /*let chartData = [];
-chartData.push(currency);console.log(`${chartData}`);*/
-		
-  
-value();
+chartData.push(Array1);console.log(`${chartData}`);*/
+
+
+
 //setTimeout("value()", 1000);
