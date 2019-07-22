@@ -67,7 +67,17 @@
             	<label for="quantity">How many steps to save in file</label>
             	<input type="number" name="quantity" step="1" min="1" max="10" value="1" required id="quantity">
             </div>
-            <div class="options">
+            <form class="options">
+            	<select name="currency" id="currency">
+            		<option value="0" selected>Currency name</option>
+            		<option value="1">USD</option>
+            		<option value="2">EUR</option>
+            		<option value="3">GBP</option>
+            		<option value="4">CHF</option>
+            	</select>
+            	<button id="currency-btn">Submit</button>
+            </form>
+            <form class="options">
             	<select name="trends" id="trends">
             		<option value="0" selected>TYPE OF FUNCTION</option>
             		<option value="1">linear</option>
@@ -75,8 +85,8 @@
             		<option value="3">logarithmic</option>
             		<option value="3">inversely proportional</option>
             	</select>
-            	<input type="button" value="CREATE TREND">
-            </div>
+            	<button id="trends-btn">CREATE TREND</button>
+            </form>
           </div>
        </section>
      </article>

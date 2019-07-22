@@ -17,7 +17,6 @@ function value() {
 		buy.push(USD_buy, EUR_buy, GBP_buy, CHF_buy);
 	}
 
-
 	// a = (Math.random() * 0.01) + 1.015 parameter changes 4 buy to 4 sell values and makes sell values always 1,5%-2,5% more than buy values
 	let sell = buy.map(i => i * ((Math.random() * 0.01) + 1.015)); // [USD_sell, EUR_sell, GBP_sell, CHF_sell]
 
@@ -43,19 +42,111 @@ function value() {
 /*** Making another 8-elements value array from previous array (making 16-elements full array) ***/
 
 function fillTable() {
-
 	let Array1 = value();
 
 	console.log(Array1);
 	
-	let pos = Array.from(cellText.keys());
+	// let pos = Array.from(cellText.keys());
 	
+	function dataTable() {
+		// b = (Math.random() * 0.1) + 0.95 is +/- 5% fluctuation of exchange rate (it prevents huge value change between steps)
+		let valuesArray2 = Array1.map(i => i * ((Math.random() * 0.1) + 0.95) );
 
-// b = (Math.random() * 0.1) + 0.95 is +/- 5% fluctuation of exchange rate (it prevents huge value change between steps)
-let valuesArray2 = Array1.map(i => i * ((Math.random() * 0.1) + 0.95)); // another 4 buy, 4 sell
+			for (let j = 0; j < valuesArray2.length; ) {
+				if (valuesArray2[`${j}`] > valuesArray2[`${j+1}`]) {
+					[valuesArray2[`${j}`], valuesArray2[`${j+1}`]] = [valuesArray2[`${j+1}`], valuesArray2[`${j}`]];
+				}
+				j = j+2;
+			}
 
+			for (let i = 0; i < valuesArray2.length; i++) {
+				cellText[i].textContent = `${tableValues(valuesArray2)[i]}`;
+			}
+		Array1 == valuesArray2;
 
+		return valuesArray2;
+	}
 
+// window.setInterval(dataTable, 2000);
+
+/* Choosing currency */
+let currencyList = document.querySelector('#currency');
+currencyList.addEventListener('change', currencySelected);
+
+function currencySelected() {
+  let currencyName = currencyList.value;
+dataTable();
+
+	switch (currencyName) {
+		case 1:
+			currencyName = valuesArray2[0];
+			break;
+		case 2:
+			currencyName = valuesArray2[2];
+			break;
+		case 3:
+			currencyName = valuesArray2[4];
+			break;
+		case 4:
+			currencyName = valuesArray2[6];
+			break;
+		default:
+			currencyName = undefined;
+			break;
+	}
+
+  return currencyName;       
+}
+
+let x = currencySelected();
+console.log(x);
+
+/*** Calculating dots position for canvas ***/
+  const canvas = document.querySelector('#myCanvas');
+  const ctx = canvas.getContext('2d');    
+  
+  const cW = canvas.width;
+  const cH = canvas.height;
+  
+  function chart() {
+
+	dataTable();
+	console.log(dataTable());
+    ctx.clearRect(0, 0, cW, cH);
+    
+ 
+	/* (0,0) point is moving to bottom-left */    
+	let Y = cH;
+	
+    // taking x and y from the array
+    for (let i = 0; i < Array1.length; i++) {      
+      
+ /* Make a right color for the lines */
+
+    /* if () {
+      ctx.fillStyle = 'red';
+    }
+    else {
+      ctx.fillStyle = 'lightred';
+	} */    
+	
+/*** Drawing lines into the canvas ***/
+	ctx.beginPath();
+    ctx.moveTo(75, 50);
+    ctx.lineTo(100, 75);
+	ctx.lineTo(100, 25);
+	
+	  
+    }
+    
+    // window.requestAnimationFrame(chart);
+  }
+  
+/* All values will go into the array and then transfer on the chart (canvas) */
+	const chartData = document.querySelector('#chartbox');
+	chartData.addEventListener('click', chart());
+
+	
 	/* for (let i = 0; i <= 15; i++) {
 		if (i <= 7) {
 			cellText[i].textContent = `${tableValues[i]}+A`;
@@ -74,12 +165,3 @@ let valuesArray2 = Array1.map(i => i * ((Math.random() * 0.1) + 0.95)); // anoth
 }
 
 fillTable();
-
-
-/* All values will go into the array and then transfer on the chart (canvas) */
-/*let chartData = [];
-chartData.push(Array1);console.log(`${chartData}`);*/
-
-
-
-//setTimeout("value()", 1000);
