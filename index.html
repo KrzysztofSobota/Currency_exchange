@@ -58,7 +58,7 @@
           <h3>Values from table into chart:</h3>
           <p>Below you have access to the chart with some options (save graphics data to files, make trends using simple mathematical functions)</p>
           <div class="chart" id="chart">
-            <canvas id="myCanvas"></canvas>
+            <canvas id="myCanvas" width="300" height="200"></canvas>
             <div class="options">
             	<label for="chartbox">Click to draw chart</label>
             	<input type="checkbox" name="chartbox" id="chartbox">
@@ -69,11 +69,11 @@
             </div>
             <form class="options">
             	<select name="currency" id="currency">
-            		<option value="0" selected>Currency name</option>
-            		<option value="1">USD</option>
-            		<option value="2">EUR</option>
-            		<option value="3">GBP</option>
-            		<option value="4">CHF</option>
+            		<option class="currency-opt" value="0" selected>Currency name</option>
+            		<option class="currency-opt" value="1">USD</option>
+            		<option class="currency-opt" value="2">EUR</option>
+            		<option class="currency-opt" value="3">GBP</option>
+            		<option class="currency-opt" value="4">CHF</option>
             	</select>
             	<button id="currency-btn">Submit</button>
             </form>

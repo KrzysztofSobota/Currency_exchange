@@ -1,4 +1,3 @@
-/* eslint-env es6 */
 "use strict";
 
 /*** Making 8-elements value array (4 buy -> 4 buy + 4 sell) ***/
@@ -21,22 +20,22 @@ function value() {
 	let sell = buy.map(i => i * ((Math.random() * 0.01) + 1.015)); // [USD_sell, EUR_sell, GBP_sell, CHF_sell]
 
 	let valuesArray1 = [];
-		for (let index = 0; index < buy.length; index++) {
-			// buy, sell, buy, sell,... etc.
-			valuesArray1.push(buy[index], sell[index]);
-		}
-		
-		for (let i = 0; i < valuesArray1.length; i++) {
-			cellText[i].textContent = `${tableValues(valuesArray1)[i]}`;
-		}
+	for (let index = 0; index < buy.length; index++) {
+		// buy, sell, buy, sell,... etc.
+		valuesArray1.push(buy[index], sell[index]);
+	}
+
+	for (let i = 0; i < valuesArray1.length; i++) {
+		cellText[i].textContent = `${tableValues(valuesArray1)[i]}`;
+	}
 
 	return valuesArray1;
 }
 
-	/* Function changes number of digits after the dot in all currency values to 4 (3.42 -> 3.4200, 2.86474 -> 2.8647, etc.) */
-	let tableValues = i => i.map(x => x.toFixed(4));
+/* Function changes number of digits after the dot in all currency values to 4 (3.42 -> 3.4200, 2.86474 -> 2.8647, etc.) */
+let tableValues = i => i.map(x => x.toFixed(4));
 
-	let cellText = document.querySelectorAll('.value');
+let cellText = document.querySelectorAll('.value');
 
 
 /*** Making another 8-elements value array from previous array (making 16-elements full array) ***/
@@ -45,123 +44,103 @@ function fillTable() {
 	let Array1 = value();
 
 	console.log(Array1);
-	
+
 	// let pos = Array.from(cellText.keys());
-	
+
 	function dataTable() {
 		// b = (Math.random() * 0.1) + 0.95 is +/- 5% fluctuation of exchange rate (it prevents huge value change between steps)
-		let valuesArray2 = Array1.map(i => i * ((Math.random() * 0.1) + 0.95) );
+		let valuesArray2 = Array1.map(i => i * ((Math.random() * 0.1) + 0.95));
 
-			for (let j = 0; j < valuesArray2.length; ) {
-				if (valuesArray2[`${j}`] > valuesArray2[`${j+1}`]) {
-					[valuesArray2[`${j}`], valuesArray2[`${j+1}`]] = [valuesArray2[`${j+1}`], valuesArray2[`${j}`]];
-				}
-				j = j+2;
+		for (let j = 0; j < valuesArray2.length;) {
+			if (valuesArray2[`${j}`] > valuesArray2[`${j+1}`]) {
+				[valuesArray2[`${j}`], valuesArray2[`${j+1}`]] = [valuesArray2[`${j+1}`], valuesArray2[`${j}`]];
 			}
+			j = j + 2;
+		}
 
-			for (let i = 0; i < valuesArray2.length; i++) {
-				cellText[i].textContent = `${tableValues(valuesArray2)[i]}`;
-			}
+		for (let i = 0; i < valuesArray2.length; i++) {
+			cellText[i].textContent = `${tableValues(valuesArray2)[i]}`;
+		}
 		Array1 == valuesArray2;
 
 		return valuesArray2;
 	}
 
-// window.setInterval(dataTable, 2000);
+	window.setInterval(dataTable, 2000);
 
-/* Choosing currency */
-let currencyList = document.querySelector('#currency');
-currencyList.addEventListener('change', currencySelected);
+	/* Choosing currency */
+	let currencyList = document.querySelector('#currency');
+	currencyList.addEventListener('change', currencySelected);
 
-function currencySelected() {
-  let currencyName = currencyList.value;
-dataTable();
+	function currencySelected() {
+		let currencyIndex = currencyList.selectedIndex;
+		let currencyValue;
 
-	switch (currencyName) {
-		case 1:
-			currencyName = valuesArray2[0];
-			break;
-		case 2:
-			currencyName = valuesArray2[2];
-			break;
-		case 3:
-			currencyName = valuesArray2[4];
-			break;
-		case 4:
-			currencyName = valuesArray2[6];
-			break;
-		default:
-			currencyName = undefined;
-			break;
+		function values(name) {
+			let buyValue = document.querySelector(`#${name}_buy`).innerHTML;
+			let sellValue = document.querySelector(`#${name}_sell`).innerHTML;
+			currencyValue = [Number(buyValue), Number(sellValue)];
+
+			return currencyValue;
+		}
+
+
+		switch (currencyIndex) {
+			case 1:
+				currencyValue == values('USD');
+				break;
+			case 2:
+				currencyValue == values('EUR');
+				break;
+			case 3:
+				currencyValue == values('GBP');
+				break;
+			case 4:
+				currencyValue == values('CHF');
+				break;
+		}
+
+		return currencyValue;
 	}
 
-  return currencyName;       
-}
+	let currencyBtn = document.querySelector('#currency-btn');
+	currencyBtn.addEventListener('click', chart);
 
-let x = currencySelected();
-console.log(x);
+	const canvas = document.querySelector('#myCanvas');
+	const ctx = canvas.getContext('2d');
 
-/*** Calculating dots position for canvas ***/
-  const canvas = document.querySelector('#myCanvas');
-  const ctx = canvas.getContext('2d');    
-  
-  const cW = canvas.width;
-  const cH = canvas.height;
-  
-  function chart() {
-
-	dataTable();
-	console.log(dataTable());
-    ctx.clearRect(0, 0, cW, cH);
-    
- 
-	/* (0,0) point is moving to bottom-left */    
-	let Y = cH;
+	const cW = canvas.width;
+	const cH = canvas.height;
 	
-    // taking x and y from the array
-    for (let i = 0; i < Array1.length; i++) {      
-      
- /* Make a right color for the lines */
 
-    /* if () {
-      ctx.fillStyle = 'red';
+	function chart() {
+		ctx.clearRect(0, 0, cW, cH);
+
+		currencySelected();		
+
+		let buy = currencySelected()[0];
+/* Y axis was scaling 10 times and (0,0) point was moving to bottom-left */
+		let Y = cH - 10 * buy;
+console.log(Y);
+		/*** Drawing lines into the canvas ***/
+		ctx.fillStyle = 'red';
+		ctx.beginPath();
+		ctx.moveTo(0, Y);
+		for (let i = 1; i <= 10; i++) {
+			ctx.lineTo((cW / 10) * i, Y);
+		}
+
+		let sell = currencySelected()[1];
+		
     }
-    else {
-      ctx.fillStyle = 'lightred';
-	} */    
-	
-/*** Drawing lines into the canvas ***/
-	ctx.beginPath();
-    ctx.moveTo(75, 50);
-    ctx.lineTo(100, 75);
-	ctx.lineTo(100, 25);
-	
-	  
-    }
-    
-    // window.requestAnimationFrame(chart);
-  }
-  
-/* All values will go into the array and then transfer on the chart (canvas) */
+	chart();
+
+		// window.requestAnimationFrame(chart);
+
+	/* All values will go into the array and then transfer on the chart (canvas) */
 	const chartData = document.querySelector('#chartbox');
 	chartData.addEventListener('click', chart());
 
-	
-	/* for (let i = 0; i <= 15; i++) {
-		if (i <= 7) {
-			cellText[i].textContent = `${tableValues[i]}+A`;
-			console.log(`${tableValues[i]}+A`);
-		} else {
-			if (currency[i] < currency[i - 8]) {
-				cellText[i - 8].textContent = `${tableValues[i]} ${'\u2193'}`; //low
-			} else if (currency[i] == currency[i - 8]) {
-				cellText[i - 8].textContent = `${tableValues[i]} ${'\u2500'}`; //no change
-			} else {
-				cellText[i - 8].textContent = `${tableValues[i]} ${'\u2191'}`; //high
-			}
-			console.log(`${tableValues[i]} A`);
-		}
-	} */
 }
 
 fillTable();
