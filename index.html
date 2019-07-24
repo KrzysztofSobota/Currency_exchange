@@ -64,19 +64,9 @@
             	<input type="checkbox" name="chartbox" id="chartbox">
             </div>
             <div class="options">
-            	<label for="quantity">How many steps to save in file</label>
-            	<input type="number" name="quantity" step="1" min="1" max="10" value="1" required id="quantity">
-            </div>
-            <form class="options">
-            	<select name="currency" id="currency">
-            		<option class="currency-opt" value="0" selected>Currency name</option>
-            		<option class="currency-opt" value="1">USD</option>
-            		<option class="currency-opt" value="2">EUR</option>
-            		<option class="currency-opt" value="3">GBP</option>
-            		<option class="currency-opt" value="4">CHF</option>
-            	</select>
-            	<button id="currency-btn">Submit</button>
-            </form>
+            	<label for="quantity">Interval numbers in the chart</label>
+            	<input type="number" name="quantity" step="1" min="5" max="10" value="5" required id="quantity">
+              <button id="intervals-btn">Accept</button>
             <form class="options">
             	<select name="trends" id="trends">
             		<option value="0" selected>TYPE OF FUNCTION</option>
